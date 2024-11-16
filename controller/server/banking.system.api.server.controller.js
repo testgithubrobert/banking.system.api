@@ -35,7 +35,7 @@ api.use(module.require("body-parser").json());
 api.use(module.require("body-parser").urlencoded({ extended: Boolean(true) }));
 
 // api routers handlers
-api.use("/", require("../routers/banking.system.api.routers.controller"));
+api.use("/", require("../routes/services/banking.system.api.routers.controller"));
 
 // set api configurations
 api.set("port", process.env.PORT || 4000);

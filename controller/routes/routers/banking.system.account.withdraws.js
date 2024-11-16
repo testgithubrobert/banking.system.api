@@ -50,7 +50,7 @@ router
       } else if (FoundAccount.account_balance < request.body.amount) {
         this.response
           .status(Number(400))
-          .jsonp({ message: String("insuficient account balance!") });
+          .jsonp({ message: String("insufficient account balance!") });
       } else if (!PasswordMatch || PasswordMatch === Boolean(false)) {
         this.response.status(Number(400)).json(`Password match failed!`);
       }  else if(FoundAccount.account_balance < Number(parseInt(20))) {
@@ -60,7 +60,7 @@ router
           ),
         });
       } else {
-        // make new widthdraw histroy
+        // make new withdraw history
         await pool_connection.query(`
               INSERT INTO banking_system_db.account_withdraw_history VALUES(
                 ${JSON.stringify(uuid())}, ${Number(

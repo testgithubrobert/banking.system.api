@@ -44,7 +44,7 @@ router
           .status(Number(400))
           .jsonp({
             message: String(
-              "insuficient account balance, your account should have an account balance of $20 in order to get a loan"
+              "insufficient account balance, your account should have an account balance of $20 in order to get a loan"
             ),
           });
       } else if (FoundAccount.account_debt > 0) {
@@ -56,7 +56,7 @@ router
             ),
           });
       } else {
-        // make new loan histroy and save to database
+        // make new loan history and save to database
         await pool_connection.query(`
               INSERT INTO banking_system_db.account_loan_history VALUES(
                 ${JSON.stringify(uuid())}, ${Number(

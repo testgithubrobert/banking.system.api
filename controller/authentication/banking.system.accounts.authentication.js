@@ -11,22 +11,22 @@ router.route("/").get((request, response) => {
 // middleware to handle banking system accounts
 router.use(
   "/registration",
-  require("./modules/register.banking.system.account.authentication")
+  require("./routers/register.banking.system.account.authentication")
 );
 
 router.use(
   "/close",
-  require("./modules/drop.banking.system.account.authentication")
+  require("./routers/drop.banking.system.account.authentication")
 );
 
 router.use(
   "/updating",
-  require("./modules/update.banking.system.account.authentication")
+  require("./routers/update.banking.system.account.authentication")
 );
 
 router.use(
-  "/checkout/status",
-  require("./modules/get.banking.system.account.authentication")
+  "/",
+  require("./routers/get.banking.system.account.authentication")
 );
 
 router.use(require("../middleware/error/404.error.middleware.controller"));

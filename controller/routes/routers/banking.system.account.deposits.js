@@ -11,10 +11,10 @@ router
     this.response = response;
     this.request = request;
     this.response.contentType = "application/json";
-    this.response.statusCode = Number(200);
+    this.response.statusCode = Number(parseInt(200));
     this.response.setHeader("Access-Control-Allow-MethodS", "GET");
 
-    this.response.status(200).jsonp({
+    this.response.status(parseInt(200)).jsonp({
       message: "Welcome to easy banking account depositing services!",
     });
   })
@@ -22,7 +22,7 @@ router
     this.response = response;
     this.request = request;
     this.response.contentType = "application/json";
-    this.response.statusCode = Number(200);
+    this.response.statusCode = Number(parseInt(200));
     this.response.setHeader("Access-Control-Allow-MethodS", "POST");
 
     try {
@@ -96,7 +96,7 @@ router
                   )}
               `);
 
-        this.response.status(200).jsonp({
+        this.response.status(parseInt(200)).jsonp({
           message: `deposited $${request.body.amount - FoundAccount.account_debt} and paid a debt of $${FoundAccount.account_debt} on account with account number ${FoundAccount.account_number}`,
         });
 
@@ -132,7 +132,7 @@ router
         )}
           `);
 
-        this.response.status(200).jsonp({
+        this.response.status(parseInt(200)).jsonp({
           message: `deposited $${request.body.amount} on account with account number ${FoundAccount.account_number}`,
         });
 
