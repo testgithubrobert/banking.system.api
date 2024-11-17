@@ -1,4 +1,6 @@
 "use strict";
+// @ts-check
+
 const express = require("express");
 const router = express.Router();
 const pool_connection = require("../../../model/connection/api.model.connection");
