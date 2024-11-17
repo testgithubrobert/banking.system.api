@@ -1,4 +1,6 @@
 "use strict";
+// @ts-check
+
 const express = module.require("express");
 const http = module.require("node:http");
 const api = express();
@@ -35,7 +37,7 @@ api.use(module.require("body-parser").json());
 api.use(module.require("body-parser").urlencoded({ extended: Boolean(true) }));
 
 // api routers handlers
-api.use("/", require("../routes/services/banking.system.api.routers.controller"));
+api.use("/", require("../routes/banking.system.api.routers.controller"));
 
 // set api configurations
 api.set("port", process.env.PORT || 4000);
