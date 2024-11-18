@@ -1,7 +1,9 @@
 "use strict";
+// @ts-check
+
 const express = require("express");
 const router = express.Router();
-const pool_connection = require("../../../model/connection/api.model.connection");
+const pool_connection = require("../../../../model/connection/api.model.connection");
 var { v4: uuid } = require("uuid");
 const format = require("date-fns").format;
 
@@ -44,7 +46,7 @@ router
           .status(Number(400))
           .jsonp({
             message: String(
-              "insuficient account balance, your account should have an account balance of $20 in order to get a loan"
+              "insufficient account balance, your account should have an account balance of $20 in order to get a loan"
             ),
           });
       } else if (FoundAccount.account_debt > 0) {
@@ -56,7 +58,7 @@ router
             ),
           });
       } else {
-        // make new loan histroy and save to database
+        // make new loan history and save to database
         await pool_connection.query(`
               INSERT INTO banking_system_db.account_loan_history VALUES(
                 ${JSON.stringify(uuid())}, ${Number(
@@ -114,6 +116,7 @@ router
           response: {
             id: FoundAccount.id,
             account_number: FoundAccount.account_number,
+            owner: `${FoundAccount.surname} ${FoundAccount.givenname}`,
             new_account_debt: Number(this.request.body.amount + 1),
           }
         });
@@ -127,5 +130,5 @@ router
     }
   });
 
-router.use(require("../../middleware/error/404.error.middleware.controller"));
+router.use(require("../../../middleware/error/404.error.middleware.controller"));
 module.exports = router;

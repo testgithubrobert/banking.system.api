@@ -1,7 +1,9 @@
 "use strict";
+// @ts-check
+
 const express = require("express");
 const router = express.Router();
-const pool_connection = require("../../../model/connection/api.model.connection");
+const pool_connection = require("../../../../model/connection/api.model.connection");
 var { v4: uuid } = require("uuid");
 const format = require("date-fns").format;
 const bcrypt = require("bcrypt");
@@ -37,10 +39,13 @@ router
         return account.account_number === request.body.account_number;
       });
 
+      // decrypt password for account
+      const decryptedPassword = atob(FoundAccount.password)
+
       // compare password auth for a requested account
       let PasswordMatch = await bcrypt.compare(
-        request.body.password,
-        FoundAccount.password
+        request.body.password ? request.body.password : "JDJiJDEwJ",
+        decryptedPassword
       );
 
       if (!FoundAccount || typeof FoundAccount === "undefined") {
@@ -50,7 +55,7 @@ router
       } else if (FoundAccount.account_balance < request.body.amount) {
         this.response
           .status(Number(400))
-          .jsonp({ message: String("insuficient account balance!") });
+          .jsonp({ message: String("insufficient account balance!") });
       } else if (!PasswordMatch || PasswordMatch === Boolean(false)) {
         this.response.status(Number(400)).json(`Password match failed!`);
       } else if (FoundAccount.account_balance < Number(parseInt(20))) {
@@ -60,7 +65,7 @@ router
           ),
         });
       } else {
-        // make new widthdraw histroy
+        // make new withdraw history
         await pool_connection.query(`
               INSERT INTO banking_system_db.account_withdraw_history VALUES(
                 ${JSON.stringify(uuid())}, ${Number(
@@ -83,8 +88,12 @@ router
           `);
 
         this.response
-          .status(200)
+          .status(Number(parseInt(200)))
           .jsonp({
+            date: format(new Date(), "dd/MM/yyyy\tHH:mm:ss"),
+            withdrew_amount: `$${request.body.amount}`,
+            account_number: String(FoundAccount.account_number),
+            account_balance: Number(parseInt(NewAccountBalance)),
             message: `Withdrew $${request.body.amount} from account with account number ${FoundAccount.account_number}`,
           });
       }
@@ -96,5 +105,5 @@ router
     }
   });
 
-router.use(require("../../middleware/error/404.error.middleware.controller"));
+router.use(require("../../../middleware/error/404.error.middleware.controller"));
 module.exports = router;

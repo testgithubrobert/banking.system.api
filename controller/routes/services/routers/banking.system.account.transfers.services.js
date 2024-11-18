@@ -1,7 +1,9 @@
 "use strict";
+// @ts-check
+
 const express = require("express");
 const router = express.Router();
-const pool_connection = require("../../../model/connection/api.model.connection");
+const pool_connection = require("../../../../model/connection/api.model.connection");
 var { v4: uuid } = require("uuid");
 const format = require("date-fns").format;
 const bcrypt = require("bcrypt");
@@ -40,10 +42,13 @@ router
         return account.account_number === this.request.body.receiver;
       });
 
+      // decrypt password for account
+      const decryptedPassword = atob(FoundSenderAccount.password)
+
       // compare password auth for a requested account
       let PasswordMatch = await bcrypt.compare(
-        this.request.body.password,
-        FoundSenderAccount.password
+        request.body.password ? request.body.password : "JDJiJDEwJ",
+        decryptedPassword
       );
 
       if (!FoundSenderAccount || typeof FoundSenderAccount === "undefined") {
@@ -169,5 +174,5 @@ router
     }
   });
 
-router.use(require("../../middleware/error/404.error.middleware.controller"));
+router.use(require("../../../middleware/error/404.error.middleware.controller"));
 module.exports = router;

@@ -1,4 +1,6 @@
 "use strict";
+// @ts-check
+
 const mysql2 = require("mysql2");
 // configure dotenv for secrete tokens and password
 require("dotenv").config();

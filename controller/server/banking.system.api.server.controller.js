@@ -1,4 +1,6 @@
 "use strict";
+// @ts-check
+
 const express = module.require("express");
 const http = module.require("node:http");
 const api = express();
@@ -16,7 +18,7 @@ api.use((request, response, next) => {
   this.response.statusCode = Number(200);
   this.response.contentType = this.request ? "application/json" : "text/plain";
   this.response.setHeader(
-    "Access-Control-Allow-Method",
+    "Access-Control-Allow-Methods",
     "PUT, PATCH, DELETE, POST, GET"
   ); // allow all http/https methods
   this.response.setHeader("Access-Control-Allow-Credentials", Boolean(true));
@@ -35,7 +37,7 @@ api.use(module.require("body-parser").json());
 api.use(module.require("body-parser").urlencoded({ extended: Boolean(true) }));
 
 // api routers handlers
-api.use("/", require("../routers/banking.system.api.routers.controller"));
+api.use("/", require("../routes/banking.system.api.routers.controller"));
 
 // set api configurations
 api.set("port", process.env.PORT || 4000);
