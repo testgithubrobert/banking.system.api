@@ -32,7 +32,7 @@ router
       const RegisteredAccounts = await pool_connection.query(
         "SELECT * FROM banking_system_db.accounts"
       );
-      
+
       const FoundAccount = RegisteredAccounts[0].find((account) => {
         return account.account_number === request.body.account_number;
       });
@@ -53,7 +53,7 @@ router
           .jsonp({ message: String("insuficient account balance!") });
       } else if (!PasswordMatch || PasswordMatch === Boolean(false)) {
         this.response.status(Number(400)).json(`Password match failed!`);
-      }  else if(FoundAccount.account_balance < Number(parseInt(20))) {
+      } else if (FoundAccount.account_balance < Number(parseInt(20))) {
         this.response.status(Number(400)).jsonp({
           message: String(
             `Account ${FoundAccount.account_number} has less account balance to finish withdraw, recharge to continue!`
@@ -76,8 +76,8 @@ router
           FoundAccount.account_balance - parseInt(request.body.amount);
         await pool_connection.query(`
               UPDATE banking_system_db.accounts SET account_balance = ${Number(
-                NewAccountBalance
-              )} WHERE account_number = ${JSON.stringify(
+          NewAccountBalance
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
           `);

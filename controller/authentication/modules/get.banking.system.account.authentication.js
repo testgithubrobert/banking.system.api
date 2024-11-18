@@ -11,7 +11,7 @@ router.route("/").get(async (request, response) => {
   this.response.contentType = "application/json";
   this.response.statusCode = Number(parseInt(200));
   this.response.setHeader("Access-Control-Allow-MethodS", "GET");
-  
+
   try {
     // fetch and check for available account
     const RegisteredAccounts = await pool_connection.query(
@@ -52,12 +52,21 @@ router.route("/").get(async (request, response) => {
     }
   } catch (error) {
     this.response
+<<<<<<< Updated upstream:controller/authentication/modules/get.banking.system.account.authentication.js
         .status(Number(parseInt(404)))
         .jsonp({
           message: `No such account with account number ${request.body.sender} was found!`,
           error: String(error.message)
         });
       console.log(error);
+=======
+      .status(Number(parseInt(404)))
+      .jsonp({
+        message: `No such account with account number ${request.params.account_number} was found!`,
+        error: String(error.message)
+      });
+    console.log(error);
+>>>>>>> Stashed changes:controller/authentication/routers/get.banking.system.account.authentication.js
   }
 });
 

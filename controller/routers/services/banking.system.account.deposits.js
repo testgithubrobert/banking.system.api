@@ -30,7 +30,7 @@ router
       const RegisteredAccounts = await pool_connection.query(
         "SELECT * FROM banking_system_db.accounts"
       );
-      
+
       const FoundAccount = RegisteredAccounts[0].find((account) => {
         return account.account_number === request.body.account_number;
       });
@@ -67,8 +67,8 @@ router
         // set new account balance
         await pool_connection.query(`
                   UPDATE banking_system_db.accounts SET account_balance = ${Number(
-                    NewAccountBalance
-                  )} WHERE account_number = ${JSON.stringify(
+          NewAccountBalance
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
               `);
@@ -76,8 +76,8 @@ router
         // set new account balance history
         await pool_connection.query(`
                   UPDATE banking_system_db.accounts SET account_balance = ${Number(
-                    NewAccountBalance
-                  )} WHERE account_number = ${JSON.stringify(
+          NewAccountBalance
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
               `);
@@ -85,15 +85,15 @@ router
         // set account debt = 0 after deduction from deposited amount
         await pool_connection.query(`
                   UPDATE banking_system_db.accounts SET account_debt = 0 WHERE account_number = ${JSON.stringify(
-                    FoundAccount.account_number
-                  )}
+          FoundAccount.account_number
+        )}
               `);
 
         // set account history debt = 0 after deduction from deposited amount
         await pool_connection.query(`
                   UPDATE banking_system_db.accounts_history SET account_debt = 0 WHERE account_number = ${JSON.stringify(
-                    FoundAccount.account_number
-                  )}
+          FoundAccount.account_number
+        )}
               `);
 
         this.response.status(200).jsonp({
@@ -117,8 +117,8 @@ router
           parseInt(request.body.amount) + FoundAccount.account_balance;
         await pool_connection.query(`
               UPDATE banking_system_db.accounts SET account_balance = ${Number(
-                NewAccountBalance
-              )} WHERE account_number = ${JSON.stringify(
+          NewAccountBalance
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
           `);
@@ -126,8 +126,8 @@ router
         // update the requested account history for deposit
         await pool_connection.query(`
               UPDATE banking_system_db.accounts_history SET account_balance = ${Number(
-                NewAccountBalance
-              )} WHERE account_number = ${JSON.stringify(
+          NewAccountBalance
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
           `);

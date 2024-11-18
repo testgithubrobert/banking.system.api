@@ -65,8 +65,8 @@ router
         // delete account from the database
         await pool_connection.query(`
               DELETE FROM banking_system_db.accounts WHERE account_number = ${JSON.stringify(
-                FoundAccount.account_number
-              )}
+          FoundAccount.account_number
+        )}
           `);
 
         // save deleted accounts history

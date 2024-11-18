@@ -25,8 +25,8 @@ api.use((request, response, next) => {
   this.request
     ? next()
     : this.response
-        .status(200)
-        .jsonp({ message: "Failed to go to next middleware!" });
+      .status(200)
+      .jsonp({ message: "Failed to go to next middleware!" });
 });
 
 api.use(express.json());
