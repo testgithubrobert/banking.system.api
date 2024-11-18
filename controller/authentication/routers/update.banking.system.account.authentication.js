@@ -18,7 +18,7 @@ router
       .status(200)
       .jsonp({ message: "Updating banking account at the moment is not allowed!" });
   })
-  .put((request, response) => {});
+  .put((request, response) => { });
 
 router.use(require("../../middleware/error/404.error.middleware.controller"));
 module.exports = router;

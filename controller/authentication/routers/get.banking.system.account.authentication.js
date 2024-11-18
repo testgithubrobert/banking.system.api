@@ -13,7 +13,7 @@ router.route("/:account_number").get(async (request, response) => {
   this.response.contentType = "application/json";
   this.response.statusCode = Number(parseInt(200));
   this.response.setHeader("Access-Control-Allow-MethodS", "GET");
-  
+
   try {
     // fetch and check for available account
     const RegisteredAccounts = await pool_connection.query(
@@ -47,12 +47,12 @@ router.route("/:account_number").get(async (request, response) => {
     }
   } catch (error) {
     this.response
-        .status(Number(parseInt(404)))
-        .jsonp({
-          message: `No such account with account number ${request.params.account_number} was found!`,
-          error: String(error.message)
-        });
-      console.log(error);
+      .status(Number(parseInt(404)))
+      .jsonp({
+        message: `No such account with account number ${request.params.account_number} was found!`,
+        error: String(error.message)
+      });
+    console.log(error);
   }
 });
 

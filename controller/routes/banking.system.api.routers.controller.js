@@ -25,10 +25,10 @@ router.use(
 router.use("/services", require("./services/banking.system.api.services.routes.controller"));
 
 // route to handle information about api
-router.use("/about-api", require("./routers/about.banking.system.api.controller"));
+router.use("/about-api", require("./about.banking.system.api.controller"));
 
 // route to handle guide for the api
-router.use("/guide", require("./routers/banking.system.api.guide.controller"));
+router.use("/guide", require("./banking.system.api.guide.controller"));
 
 // 404 error handler for unfounded queries
 router.use(require("../middleware/error/404.error.middleware.controller"));

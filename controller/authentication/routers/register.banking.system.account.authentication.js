@@ -14,7 +14,7 @@ const b = Math.floor(Math.random() * 200);
 const c = Math.floor(Math.random() * 300);
 const d = Math.floor(Math.random() * 400);
 
-const random_number = `R${a}${b}${c}${d}AN`;  
+const random_number = `R${a}${b}${c}${d}AN`;
 
 // make or register a banking account
 router
@@ -97,7 +97,7 @@ router
           format(new Date(), "yyyy-MM-dd")
         )}
             )`);
-            
+
         this.response.status(201).jsonp({
           message:
             "successfully account has been registered, you can now start depositing or withdrawing cash on your account!",

@@ -19,14 +19,14 @@ router
 
     this.response
       .status(parseInt(200))
-      .jsonp({ message: "Welcome to easy banking account dropping!" });
+      .jsonp({ message: "Welcome to easy banking account dropping or closing services!" });
   })
   .delete(async (request, response) => {
     this.response = response;
     this.request = request;
     this.response.contentType = "application/json";
     this.response.statusCode = Number(parseInt(200));
-    this.response.setHeader("Access-Control-Allow-MethodS", "DELETE");
+    this.response.setHeader("Access-Control-Allow-Method", "DELETE");
 
     try {
       // find a requested banking system account for closure
@@ -37,10 +37,13 @@ router
         return account.account_number === request.body.account_number;
       });
 
+      // decrypt password for account
+      const decryptedPassword = atob(FoundAccount.password)
+
       // compare password auth for a requested account
       let PasswordMatch = await bcrypt.compare(
-        this.request.body.password,
-        FoundAccount.password
+        request.body.password ? request.body.password : "JDJiJDEwJ",
+        decryptedPassword
       );
 
       if (!FoundAccount || typeof FoundAccount === "undefined") {
@@ -67,8 +70,8 @@ router
         // delete account from the database
         await pool_connection.query(`
               DELETE FROM banking_system_db.accounts WHERE account_number = ${JSON.stringify(
-                FoundAccount.account_number
-              )}
+          FoundAccount.account_number
+        )}
           `);
 
         // save deleted accounts history

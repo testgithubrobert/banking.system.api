@@ -18,7 +18,7 @@ api.use((request, response, next) => {
   this.response.statusCode = Number(200);
   this.response.contentType = this.request ? "application/json" : "text/plain";
   this.response.setHeader(
-    "Access-Control-Allow-Method",
+    "Access-Control-Allow-Methods",
     "PUT, PATCH, DELETE, POST, GET"
   ); // allow all http/https methods
   this.response.setHeader("Access-Control-Allow-Credentials", Boolean(true));
@@ -27,8 +27,8 @@ api.use((request, response, next) => {
   this.request
     ? next()
     : this.response
-        .status(200)
-        .jsonp({ message: "Failed to go to next middleware!" });
+      .status(200)
+      .jsonp({ message: "Failed to go to next middleware!" });
 });
 
 api.use(express.json());

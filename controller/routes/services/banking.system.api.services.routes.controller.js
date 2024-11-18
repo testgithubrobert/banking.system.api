@@ -4,16 +4,6 @@
 const express = require("express");
 const router = express.Router();
 
-router.route("/").get((request, response) => {
-  this.response = response;
-  this.request = request;
-  this.response.contentType = "application/json";
-  this.response.statusCode = Number(200);
-  this.response.setHeader("Access-Control-Allow-Method", "GET");
-
-  this.response.status(200).jsonp({ message: "Welcome to easy banking system!" });
-});
-
 // routes for handling banking system services
 router.route("/").get((request, response) => {
   this.response = response;
@@ -22,7 +12,7 @@ router.route("/").get((request, response) => {
   this.response.statusCode = Number(200);
   this.response.setHeader("Access-Control-Allow-Method", "GET");
 
-  this.response 
+  this.response
     .status(200)
     .jsonp({
       message: "Welcome to easy banking system services",
@@ -39,22 +29,22 @@ router.route("/").get((request, response) => {
 // route for depositing money(put, get)
 router.use(
   "/deposit",
-  require("../routers/banking.system.account.deposits") 
+  require("./routers/banking.system.account.deposits.services")
 );
 // route for withdrawing money(put, get)
 router.use(
   "/withdraw",
-  require("../routers/banking.system.account.withdraws")
+  require("./routers/banking.system.account.withdraws.services")
 );
 // route for transferring money(put, get)
 router.use(
   "/transfer",
-  require("../routers/banking.system.account.transfers")
+  require("./routers/banking.system.account.transfers.services")
 );
 // route for getting a loan
 router.use(
   "/loan",
-  require("../routers/banking.system.account.loans.handler")
+  require("./routers/banking.system.account.loans.services")
 );
 
 // 404 error handler for unfounded queries

@@ -3,7 +3,7 @@
 
 const express = require("express");
 const router = express.Router();
-const pool_connection = require("../../../model/connection/api.model.connection");
+const pool_connection = require("../../../../model/connection/api.model.connection");
 var { v4: uuid } = require("uuid");
 const format = require("date-fns").format;
 const bcrypt = require("bcrypt");
@@ -34,15 +34,18 @@ router
       const RegisteredAccounts = await pool_connection.query(
         "SELECT * FROM banking_system_db.accounts"
       );
-      
+
       const FoundAccount = RegisteredAccounts[0].find((account) => {
         return account.account_number === request.body.account_number;
       });
 
+      // decrypt password for account
+      const decryptedPassword = atob(FoundAccount.password)
+
       // compare password auth for a requested account
       let PasswordMatch = await bcrypt.compare(
-        request.body.password,
-        FoundAccount.password
+        request.body.password ? request.body.password : "JDJiJDEwJ",
+        decryptedPassword
       );
 
       if (!FoundAccount || typeof FoundAccount === "undefined") {
@@ -55,7 +58,7 @@ router
           .jsonp({ message: String("insufficient account balance!") });
       } else if (!PasswordMatch || PasswordMatch === Boolean(false)) {
         this.response.status(Number(400)).json(`Password match failed!`);
-      }  else if(FoundAccount.account_balance < Number(parseInt(20))) {
+      } else if (FoundAccount.account_balance < Number(parseInt(20))) {
         this.response.status(Number(400)).jsonp({
           message: String(
             `Account ${FoundAccount.account_number} has less account balance to finish withdraw, recharge to continue!`
@@ -78,8 +81,8 @@ router
           FoundAccount.account_balance - parseInt(request.body.amount);
         await pool_connection.query(`
               UPDATE banking_system_db.accounts SET account_balance = ${Number(
-                NewAccountBalance
-              )} WHERE account_number = ${JSON.stringify(
+          NewAccountBalance
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
           `);
@@ -98,5 +101,5 @@ router
     }
   });
 
-router.use(require("../../middleware/error/404.error.middleware.controller"));
+router.use(require("../../../middleware/error/404.error.middleware.controller"));
 module.exports = router;

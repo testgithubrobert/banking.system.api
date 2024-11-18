@@ -3,7 +3,7 @@
 
 const express = require("express");
 const router = express.Router();
-const pool_connection = require("../../../model/connection/api.model.connection");
+const pool_connection = require("../../../../model/connection/api.model.connection");
 var { v4: uuid } = require("uuid");
 const format = require("date-fns").format;
 
@@ -32,7 +32,7 @@ router
       const RegisteredAccounts = await pool_connection.query(
         "SELECT * FROM banking_system_db.accounts"
       );
-      
+
       const FoundAccount = RegisteredAccounts[0].find((account) => {
         return account.account_number === request.body.account_number;
       });
@@ -78,8 +78,8 @@ router
         // save changes to database 
         await pool_connection.query(`
               UPDATE banking_system_db.accounts SET account_debt = ${Number(
-                NewAccountDebt
-              )} WHERE account_number = ${JSON.stringify(
+          NewAccountDebt
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
           `);
@@ -87,8 +87,8 @@ router
         // save changes history to database history
         await pool_connection.query(`
               UPDATE banking_system_db.accounts_history SET account_debt = ${Number(
-                NewAccountDebt
-              )} WHERE account_number = ${JSON.stringify(
+          NewAccountDebt
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
           `);
@@ -96,8 +96,8 @@ router
         // update account balance after getting account loan
         await pool_connection.query(`
               UPDATE banking_system_db.accounts SET account_balance = ${Number(
-                NewAccountBalance
-              )} WHERE account_number = ${JSON.stringify(
+          NewAccountBalance
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
           `);
@@ -105,8 +105,8 @@ router
         // update account balance history after getting account loan
         await pool_connection.query(`
               UPDATE banking_system_db.accounts_history SET account_balance = ${Number(
-                NewAccountBalance
-              )} WHERE account_number = ${JSON.stringify(
+          NewAccountBalance
+        )} WHERE account_number = ${JSON.stringify(
           FoundAccount.account_number
         )}
           `);
@@ -129,5 +129,5 @@ router
     }
   });
 
-router.use(require("../../middleware/error/404.error.middleware.controller"));
+router.use(require("../../../middleware/error/404.error.middleware.controller"));
 module.exports = router;
