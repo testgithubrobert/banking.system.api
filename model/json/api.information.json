@@ -40,7 +40,8 @@
         "You can be able to surf around the api different routes": {
             "view services for the api route": "/services",
             "view this page for api guide": "/guide",
-            "view information about the api": "/about-api"
+            "view information about the api": "/about-api",
+            "view or checkout for an account": "/account/account_number"
         }
     }
 }

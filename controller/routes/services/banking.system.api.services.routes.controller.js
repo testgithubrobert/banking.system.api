@@ -12,18 +12,19 @@ router.route("/").get((request, response) => {
   this.response.statusCode = Number(200);
   this.response.setHeader("Access-Control-Allow-Method", "GET");
 
+  const services = {
+    message: "Welcome to easy banking system services",
+    services: [
+      "account balance transfer services",
+      "account balance depositing services",
+      "account cash withdrawing services",
+      "account loan services",
+    ]
+  }
+  
   this.response
     .status(200)
-    .jsonp({
-      message: "Welcome to easy banking system services",
-      services: [
-        "account balance transfer services",
-        "account balance depositing services",
-        "account cash withdrawing services",
-        "account loan services",
-      ],
-      amount: Number(parseInt(4))
-    });
+    .jsonp({...services, amount: services.services.length});
 });
 
 // route for depositing money(put, get)

@@ -135,7 +135,7 @@ router
           `);
 
         this.response.status(parseInt(200)).jsonp({
-          message: `deposited $${request.body.amount} on account with account number ${FoundAccount.account_number}`,
+          message: `deposited $${request.body.amount} on account with account number ${FoundAccount.account_number} with username ${FoundAccount.surname} ${FoundAccount.givenname}`,
         });
 
       }

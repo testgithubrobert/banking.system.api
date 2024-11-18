@@ -88,8 +88,12 @@ router
           `);
 
         this.response
-          .status(200)
+          .status(Number(parseInt(200)))
           .jsonp({
+            date: format(new Date(), "dd/MM/yyyy\tHH:mm:ss"),
+            withdrew_amount: `$${request.body.amount}`,
+            account_number: String(FoundAccount.account_number),
+            account_balance: Number(parseInt(NewAccountBalance)),
             message: `Withdrew $${request.body.amount} from account with account number ${FoundAccount.account_number}`,
           });
       }

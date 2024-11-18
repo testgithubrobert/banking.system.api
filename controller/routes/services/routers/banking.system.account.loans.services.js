@@ -116,6 +116,7 @@ router
           response: {
             id: FoundAccount.id,
             account_number: FoundAccount.account_number,
+            owner: `${FoundAccount.surname} ${FoundAccount.givenname}`,
             new_account_debt: Number(this.request.body.amount + 1),
           }
         });
