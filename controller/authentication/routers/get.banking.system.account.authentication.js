@@ -47,27 +47,12 @@ router.route("/:account_number").get(async (request, response) => {
     }
   } catch (error) {
     this.response
-<<<<<<< HEAD:controller/authentication/modules/get.banking.system.account.authentication.js
-<<<<<<< Updated upstream:controller/authentication/modules/get.banking.system.account.authentication.js
-        .status(Number(parseInt(404)))
-        .jsonp({
-          message: `No such account with account number ${request.body.sender} was found!`,
-          error: String(error.message)
-        });
-      console.log(error);
-=======
-=======
->>>>>>> testing_api:controller/authentication/routers/get.banking.system.account.authentication.js
       .status(Number(parseInt(404)))
       .jsonp({
         message: `No such account with account number ${request.params.account_number} was found!`,
         error: String(error.message)
       });
     console.log(error);
-<<<<<<< HEAD:controller/authentication/modules/get.banking.system.account.authentication.js
->>>>>>> Stashed changes:controller/authentication/routers/get.banking.system.account.authentication.js
-=======
->>>>>>> testing_api:controller/authentication/routers/get.banking.system.account.authentication.js
   }
 });
 
