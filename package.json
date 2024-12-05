@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./controller/server/banking.system.api.server.controller.js",
     "dev": "nodemon ./controller/server/banking.system.api.server.controller.js",
-    "prod": "npm run build"
+    "prod": "npm run build",
+    "build": "npm run build"
   },
   "author": "robert sims",
   "license": "ISC",
