@@ -40,8 +40,8 @@ api.use(module.require("body-parser").urlencoded({ extended: Boolean(true) }));
 api.use("/", require("../routes/banking.system.api.routers.controller"));
 
 // set api configurations
-api.set("port", process.env.PORT || 4000);
-api.set("host", process.env.HOST || "localhost");
+// api.set("port", process.env.PORT || 4000);
+// api.set("host", process.env.HOST || "localhost");
 
 const events = module.require("node:events");
 const ee = new events();
@@ -51,7 +51,8 @@ ee.on("start", () => console.log(String("api server started!")));
 api.use(module.require("../middleware/error/404.error.middleware.controller"));
 
 // start or run server on localhost
-server.listen(api.get("port"), api.get("host"), () => {
+const port = process.env.PORT || 5000
+server.listen(port, () => {
   server.listening
     ? ee.emit("start")
     : console.log(String("api server not running!"));
